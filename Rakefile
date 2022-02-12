@@ -5,10 +5,10 @@ namespace :fetch do
     url = "https://raw.githubusercontent.com/ruby/ruby/master/test/fiber/scheduler.rb"
     File.write(
       "spec/support/fiber_scheduler/ruby.rb",
-      URI.open(url).read,
+      URI.parse(url).open.read,
       mode: "w"
     )
   end
 end
 
-task fetch: %i[fetch:async]
+task fetch: %i[fetch:ruby]

@@ -41,7 +41,7 @@ RSpec.shared_examples FiberSchedulerSpec::AddressResolve do
     it "behaves async" do
       setup
 
-      expect(order).to eq [1, 2 ,3, 4, 5, 5]
+      expect(order).to eq [1, 2, 3, 4, 5, 5]
     end
   end
 end
