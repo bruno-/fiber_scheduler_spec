@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.homepage = "https://github.com/bruno-/fiber_scheduler_spec"
   gem.license = "MIT"
 
-  gem.add_development_dependency "rspec", "~> 3.11"
+  gem.add_dependency "rspec", "~> 3.11"
+
   gem.add_development_dependency "standard", "~> 1.7"
 end
