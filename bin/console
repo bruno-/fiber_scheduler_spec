@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../gems.rb", __dir__)
+
+require "bundler/setup"
+require "irb"
+
+require_relative "../lib/fiber_scheduler_spec"
+
+IRB.start
