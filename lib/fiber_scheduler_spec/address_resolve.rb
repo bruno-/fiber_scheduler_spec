@@ -25,7 +25,7 @@ RSpec.shared_examples FiberSchedulerSpec::AddressResolve do
       Fiber.schedule do
         order << 3
         Addrinfo.getaddrinfo("example.com", 80, :AF_INET, :STREAM)
-        order << 6
+        order << 5
       end
       order << 4
     end
@@ -41,7 +41,7 @@ RSpec.shared_examples FiberSchedulerSpec::AddressResolve do
     it "behaves async" do
       setup
 
-      expect(order).to eq (1..6).to_a
+      expect(order).to eq [1, 2 ,3, 4, 5, 5]
     end
   end
 end
