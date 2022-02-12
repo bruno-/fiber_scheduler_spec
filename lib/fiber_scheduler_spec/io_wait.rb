@@ -1,4 +1,4 @@
-require_relative "../fiber_scheduler_spec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module IOWait
@@ -6,7 +6,7 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::IOWait do
-  include_context FiberSchedulerSpec
+  include_context FiberSchedulerSpec::Context
 
   context "UNIXSocket#wait_readable" do
     context "without a timeout" do

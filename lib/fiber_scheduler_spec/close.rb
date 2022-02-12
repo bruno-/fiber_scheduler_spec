@@ -1,4 +1,5 @@
-require_relative "../fiber_scheduler_spec"
+require "rspec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module Close
@@ -6,7 +7,7 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::Close do
-  include_context FiberSchedulerSpec
+  include_context FiberSchedulerSpec::Context
 
   # TODO: should closing a scheduler also set Fiber.scheduler to nil?
   context "without #run" do

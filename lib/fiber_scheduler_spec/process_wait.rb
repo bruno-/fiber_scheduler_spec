@@ -1,4 +1,4 @@
-require_relative "../fiber_scheduler_spec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module ProcessWait
@@ -6,7 +6,7 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::ProcessWait do
-  include_context FiberSchedulerSpec
+  include_context FiberSchedulerSpec::Context
 
   context "Process.wait" do
     let(:interval_short) { 0.09 }

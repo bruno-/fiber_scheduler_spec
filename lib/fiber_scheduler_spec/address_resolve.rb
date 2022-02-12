@@ -1,5 +1,6 @@
+require "rspec"
 require "socket"
-require_relative "../fiber_scheduler_spec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module AddressResolve
@@ -7,7 +8,7 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::AddressResolve do
-  include_context FiberSchedulerSpec
+  include_context FiberSchedulerSpec::Context
 
   context "Addrinfo.getaddrinfo" do
     let(:order) { [] }

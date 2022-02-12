@@ -1,4 +1,4 @@
-require_relative "../fiber_scheduler_spec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module KernelSleep
@@ -6,7 +6,7 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::KernelSleep do
-  include_context FiberSchedulerSpec
+  include_context FiberSchedulerSpec::Context
 
   context "Kernel.sleep" do
     let(:order) { [] }

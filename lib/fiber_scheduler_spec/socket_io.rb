@@ -1,4 +1,4 @@
-require_relative "../fiber_scheduler_spec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module SocketIO
@@ -6,7 +6,7 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::SocketIO do
-  include_context FiberSchedulerSpec
+  include_context FiberSchedulerSpec::Context
 
   context "UNIXSocket.pair" do
     let(:order) { [] }

@@ -1,5 +1,5 @@
 require "timeout"
-require_relative "../fiber_scheduler_spec"
+require_relative "context"
 
 module FiberSchedulerSpec
   module TimeoutAfter
