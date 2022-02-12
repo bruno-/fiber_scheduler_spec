@@ -14,5 +14,6 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency "rspec", "~> 3.11"
 
+  gem.add_development_dependency "async", "~> 2.0"
   gem.add_development_dependency "standard", "~> 1.7"
 end
