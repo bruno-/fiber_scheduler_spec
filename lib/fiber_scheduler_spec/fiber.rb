@@ -8,13 +8,9 @@ end
 RSpec.shared_examples FiberSchedulerSpec::Fiber do
   include_context FiberSchedulerSpec::Context
 
-  context "Fiber.schedule" do
+  shared_examples :examples do
     let(:fibers) { [] }
     let(:fiber) { fibers.first }
-
-    def operations
-      fibers << Fiber.schedule {}
-    end
 
     it "calls #fiber" do
       expect_any_instance_of(scheduler_class)
@@ -32,7 +28,7 @@ RSpec.shared_examples FiberSchedulerSpec::Fiber do
       setup
       after = ObjectSpace.each_object(Fiber).count
 
-      # The after - before is > 1 with the built-in selector.
+      # The 'after - before' is > 1 with some selectors.
       expect(after - before).to be >= 1
     ensure
       GC.enable
@@ -44,5 +40,29 @@ RSpec.shared_examples FiberSchedulerSpec::Fiber do
       expect(fiber).to be_a Fiber
       expect(fiber).not_to be_blocking
     end
+  end
+
+  context "Fiber.schedule with an empty block" do
+    def operations
+      fibers << Fiber.schedule {}
+    end
+
+    include_examples :examples
+  end
+
+  context "Fiber.schedule with a non-blocking operation" do
+    def operations
+      fibers << Fiber.schedule { sleep 0 }
+    end
+
+    include_examples :examples
+  end
+
+  context "Fiber.schedule with a blocking operation" do
+    def operations
+      fibers << Fiber.schedule { "." }
+    end
+
+    include_examples :examples
   end
 end
