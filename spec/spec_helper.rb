@@ -1,3 +1,7 @@
+require_relative "../lib/fiber_scheduler_spec"
+
+Dir[File.join(__dir__, "support", "**", "*.rb")].sort.each { |f| require f }
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     # will be the default in rspec 4
@@ -12,7 +16,6 @@ RSpec.configure do |config|
   config.filter_run_when_matching :focus
   config.example_status_persistence_file_path = "spec/examples.txt"
   config.disable_monkey_patching!
-  config.warnings = true
   if config.files_to_run.one?
     config.default_formatter = "doc"
   end
