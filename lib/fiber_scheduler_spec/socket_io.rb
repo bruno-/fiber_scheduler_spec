@@ -6,57 +6,59 @@ module FiberSchedulerSpec
 end
 
 RSpec.shared_examples FiberSchedulerSpec::SocketIO do
-  include_context FiberSchedulerSpec::Context
+  describe "socket #io_read #io_write" do
+    include_context FiberSchedulerSpec::Context
 
-  context "UNIXSocket.pair" do
-    let(:order) { [] }
-    let(:pair) { UNIXSocket.pair }
-    let(:reader) { pair.first }
-    let(:writer) { pair.last }
-    let(:messages) { [] }
-    let(:sent) { "ruby" }
-    let(:received) { messages.first }
+    context "UNIXSocket.pair" do
+      let(:order) { [] }
+      let(:pair) { UNIXSocket.pair }
+      let(:reader) { pair.first }
+      let(:writer) { pair.last }
+      let(:messages) { [] }
+      let(:sent) { "ruby" }
+      let(:received) { messages.first }
 
-    def operations
-      Fiber.schedule do
-        order << 1
-        messages << reader.read(sent.size)
-        reader.close
-        order << 6
+      def operations
+        Fiber.schedule do
+          order << 1
+          messages << reader.read(sent.size)
+          reader.close
+          order << 6
+        end
+
+        order << 2
+
+        Fiber.schedule do
+          order << 3
+          writer.write(sent)
+          writer.close
+          order << 4
+        end
+        order << 5
       end
 
-      order << 2
+      it "calls #io_read and #io_write" do
+        expect_any_instance_of(scheduler_class)
+          .to receive(:io_read).once
+          .and_call_original
+        expect_any_instance_of(scheduler_class)
+          .to receive(:io_write).once
+          .and_call_original
 
-      Fiber.schedule do
-        order << 3
-        writer.write(sent)
-        writer.close
-        order << 4
+        setup
       end
-      order << 5
-    end
 
-    it "calls #io_read and #io_write" do
-      expect_any_instance_of(scheduler_class)
-        .to receive(:io_read).once
-        .and_call_original
-      expect_any_instance_of(scheduler_class)
-        .to receive(:io_write).once
-        .and_call_original
+      it "writes and reads a message" do
+        setup
 
-      setup
-    end
+        expect(received).to eq sent
+      end
 
-    it "writes and reads a message" do
-      setup
+      it "behaves async" do
+        setup
 
-      expect(received).to eq sent
-    end
-
-    it "behaves async" do
-      setup
-
-      expect(order).to eq (1..6).to_a
+        expect(order).to eq (1..6).to_a
+      end
     end
   end
 end

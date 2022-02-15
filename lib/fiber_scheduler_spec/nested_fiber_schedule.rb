@@ -12,27 +12,29 @@ RSpec.shared_examples FiberSchedulerSpec::NestedFiberSchedule do
     let(:order) { [] }
 
     context "with blocking operations" do
-      def operations
-        Fiber.schedule do
-          order << 1
-          sleep 0
-          order << 3
-
+      context "Kernel.sleep" do
+        def operations
           Fiber.schedule do
-            order << 4
+            order << 1
             sleep 0
-            order << 6
+            order << 3
+
+            Fiber.schedule do
+              order << 4
+              sleep 0
+              order << 6
+            end
+            order << 5
           end
-          order << 5
+
+          order << 2
         end
 
-        order << 2
-      end
+        it "completes all scheduled fibers" do
+          setup
 
-      it "completes all scheduled fibers" do
-        setup
-
-        expect(order).to eq (1..6).to_a
+          expect(order).to eq (1..6).to_a
+        end
       end
     end
 
