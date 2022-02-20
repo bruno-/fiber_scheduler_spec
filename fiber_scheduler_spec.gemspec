@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "async", "~> 2.0"
   gem.add_development_dependency "standard", "~> 1.7"
+  gem.add_development_dependency "fiber_scheduler"
 end
