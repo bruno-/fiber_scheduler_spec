@@ -1,8 +1,6 @@
 require "async/scheduler"
 
-RSpec.describe "Async fiber scheduler" do
-  let(:scheduler_class) { Async::Scheduler }
-
+RSpec.describe Async::Scheduler do
   include_examples FiberSchedulerSpec::BlockUnblock
   include_examples FiberSchedulerSpec::Close
   # include_examples FiberSchedulerSpec::Fiber
