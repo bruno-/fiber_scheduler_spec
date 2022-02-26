@@ -18,4 +18,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "standard", "~> 1.7"
   gem.add_development_dependency "evt", "~> 0.4"
   gem.add_development_dependency "fiber_scheduler", "~> 0.13"
+  gem.add_development_dependency "libev_scheduler", "~> 0.2"
 end
