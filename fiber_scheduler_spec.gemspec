@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.email = "code@brunosutic.com"
   gem.require_paths = %w[lib]
   gem.files = Dir["lib/**/*"]
-  gem.required_ruby_version = ">= 3.1.0"
+  gem.required_ruby_version = ">= 3.0.0"
   gem.homepage = "https://github.com/bruno-/fiber_scheduler_spec"
   gem.license = "MIT"
 
