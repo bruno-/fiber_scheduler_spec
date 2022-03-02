@@ -38,6 +38,8 @@ RSpec.shared_examples FiberSchedulerSpec::SocketIO do
       end
 
       it "calls #io_read and #io_write" do
+        skip unless RUBY_VERSION >= "3.1.0"
+
         expect_any_instance_of(scheduler_class)
           .to receive(:io_read).once
           .and_call_original
